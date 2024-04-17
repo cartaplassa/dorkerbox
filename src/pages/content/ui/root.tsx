@@ -2,13 +2,25 @@ import { createRoot } from 'react-dom/client';
 import App from '@pages/content/ui/app';
 import refreshOnUpdate from 'virtual:reload-on-update-in-view';
 import injectedStyle from './injected.css?inline';
+import { getURL } from '@utils/getSE.ts';
 
 refreshOnUpdate('pages/content');
 
 const root = document.createElement('div');
-root.id = 'chrome-extension-boilerplate-react-vite-content-view-root';
+root.id = 'dorkerbox-root';
 
-document.body.append(root);
+const searchEngine = getURL();
+
+switch (searchEngine) {
+  case 'duckduckgo.com': {
+    const parentContainer = document.getElementById('header');
+    const bar = document.getElementsByClassName('zcm-wrap-wrap')[0];
+    parentContainer.insertBefore(root, bar);
+    break;
+  }
+  default:
+    console.log('Search engine unrecognized');
+}
 
 const rootIntoShadow = document.createElement('div');
 rootIntoShadow.id = 'shadow-root';
