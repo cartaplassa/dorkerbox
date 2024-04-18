@@ -47,4 +47,32 @@
 .dorkerbox__inner {
   display: flex;
   flex-wrap: wrap;
+  gap: .5em;
+  padding: 1em 0 1em;
+}
+
+.dork {
+  overflow: hidden;
+  border: 2px solid orange;
+  border-radius: 1em;
+}
+
+.button {
+  padding: 1em;
+  background-color: white;
+  border: 0;
+}
+
+.input {
+  padding: 1em;
+}
+
+.dork__edit, .dork__accept {
+  border-left: 2px solid orange;
+  border-right: 2px solid orange;
+}
+
+.dorkerbox__add {
+  border: 2px solid orange;
+  border-radius: 1em;
 }

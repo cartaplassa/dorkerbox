@@ -17,15 +17,30 @@ function Dork({ content, id }: DorkProps) {
     <div className="dork">
       {editMode ? (
         <div className="dork__inner dork__inner--edit-mode">
-          <input defaultValue={content} onChange={async e => await changeDork(id, e.target.value)} />
-          <button onClick={toggleEditMode}>V</button>
-          <button onClick={async () => await removeDork(id)}>X</button>
+          <input
+            className="input"
+            defaultValue={content}
+            onChange={async e => await changeDork(id, e.target.value)}
+            style={{ width: content.length + 'ch', height: '0.85em' }}
+          />
+          <button className="button dork__accept" onClick={toggleEditMode}>
+            V
+          </button>
+          <button className="button dork__remove" onClick={async () => await removeDork(id)}>
+            X
+          </button>
         </div>
       ) : (
         <div className="dork__inner">
-          <button onClick={() => injectDork(content)}>{content}</button>
-          <button onClick={toggleEditMode}>E</button>
-          <button onClick={async () => await removeDork(id)}>X</button>
+          <button className="button dork__inject" onClick={() => injectDork(content)}>
+            {content}
+          </button>
+          <button className="button dork__edit" onClick={toggleEditMode}>
+            E
+          </button>
+          <button className="button dork__remove" onClick={async () => await removeDork(id)}>
+            X
+          </button>
         </div>
       )}
     </div>
