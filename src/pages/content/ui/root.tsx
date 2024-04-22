@@ -18,8 +18,26 @@ switch (searchEngine) {
     parentContainer.insertBefore(root, bar);
     break;
   }
+  case 'www.google.com': {
+    const parentContainer = document.getElementById('searchform');
+    parentContainer.appendChild(root);
+    document.getElementById('cnt').style.paddingTop = 'calc(20px + 4em)';
+    break;
+  }
+  case 'html.duckduckgo.com': {
+    const parentContainer = document.getElementsByClassName('header__form')[0];
+    const bar = document.getElementsByClassName('frm__select')[0];
+    parentContainer.insertBefore(root, bar);
+    break;
+  }
+  case 'lite.duckduckgo.com': {
+    const parentContainer = document.getElementsByTagName('form')[0];
+    const bar = document.getElementsByClassName('filters')[0];
+    parentContainer.insertBefore(root, bar);
+    break;
+  }
   default:
-    console.log('Search engine unrecognized');
+    console.log('Search engine unrecognized: ', searchEngine, "can't inject root");
 }
 
 const rootIntoShadow = document.createElement('div');

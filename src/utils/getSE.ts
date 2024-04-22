@@ -7,7 +7,7 @@ export const engines = {
   'duckduckgo.com': 'ddg',
   'lite.duckduckgo.com': 'ddg-lite',
   'html.duckduckgo.com': 'ddg-html',
-  'google.com': 'google',
+  'www.google.com': 'google',
   // TODO fill this crap, move it where appropriate
 };
 export const getSE = () => engines[getURL()];

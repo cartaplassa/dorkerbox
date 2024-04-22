@@ -1,54 +1,12 @@
 .dorkerbox {
-  color: white;
   border: 2px solid red;
-}
-
-.dorkerbox--ddg {
-  padding-left: 150px;
-  padding-right: 150px;
-  max-width: var(--max-content-width);
-}
-
-@media only screen and (max-width: 1350px) {
-  .dorkerbox--ddg {
-    padding-left: 94px;
-    padding-right: 94px;
-  }
-}
-
-@media only screen and (max-width: 1079px) and (min-width: 591px) {
-  .dorkerbox--ddg {
-    padding-left: 82px;
-    max-width: calc(var(--max-content-width) - 58px);
-  }
-}
-
-@media only screen and (max-width: 1079px) {
-  .dorkerbox-ddg {
-    padding-left: 58px;
-    padding-right: 58px;
-  }
-}
-
-@media only screen and (max-width: 864px) {
-  .dorkerbox--ddg {
-    padding-right: 45px;
-    display: inline-block;
-  }
-}
-
-@media only screen and (max-width: 590px) {
-  .dorkerbox--ddg {
-    padding-left: 7px;
-    padding-right: 7px;
-  }
 }
 
 .dorkerbox__inner {
   display: flex;
   flex-wrap: wrap;
   gap: .5em;
-  padding: 1em 0 1em;
+  padding: 1em;
 }
 
 .dork {
@@ -59,12 +17,15 @@
 
 .button {
   padding: 1em;
-  background-color: white;
   border: 0;
 }
 
 .input {
+  appearance: auto;
   padding: 1em;
+  background: none;
+    outline: none;
+    border: none;
 }
 
 .dork__edit, .dork__accept {
@@ -75,4 +36,18 @@
 .dorkerbox__add {
   border: 2px solid orange;
   border-radius: 1em;
+}
+
+.dorkerbox,
+.dorkerbox .button,
+.dorkerbox .input {
+  background-color: white;
+  color: black;
+}
+
+.dorkerbox--dark,
+.dorkerbox--dark .button,
+.dorkerbox--dark .input {
+  color: white;
+  background-color: #1f1f1f;
 }

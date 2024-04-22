@@ -18,6 +18,7 @@ type DorkStorage = BaseStorage<DorkCollection> & {
   addDork: () => Promise<void>;
   removeDork: (id: number) => Promise<void>;
   changeDork: (id: number, newValue: string) => Promise<void>;
+  injectDork: (content: string) => void;
 };
 
 const dorkEngine = {
@@ -29,7 +30,7 @@ const searchEngines = {
   'duckduckgo.com': 'search_form_input',
   'lite.duckduckgo.com': 'placeholder',
   'html.duckduckgo.com': 'placeholder',
-  'google.com': 'placeholder',
+  'www.google.com': 'placeholder',
 };
 
 const storageTemplate = Object.keys(searchEngines).reduce((obj, engine) => {
@@ -85,9 +86,27 @@ const dorkStorage: DorkStorage = {
     );
   },
   injectDork: content => {
-    const url = getURL();
-    const field = document.getElementById(searchEngines[url]);
-    field.value += ` ${content}`;
+    const searchEngine = getURL();
+    switch (searchEngine) {
+      case 'duckduckgo.com': {
+        const field = <HTMLInputElement>document.getElementById('search_form_input');
+        field.value += ` ${content}`;
+        break;
+      }
+      case 'www.google.com': {
+        const field = <HTMLTextAreaElement>document.querySelectorAll('[name="q"]')[0];
+        field.innerHTML += ` ${content}`;
+        break;
+      }
+      case 'html.duckduckgo.com':
+      case 'lite.duckduckgo.com': {
+        const field = <HTMLInputElement>document.querySelectorAll('[name="q"]')[0];
+        field.value += ` ${content}`;
+        break;
+      }
+      default:
+        console.log('Search engine unrecognized: ', searchEngine, "can't inject query");
+    }
   },
 };
 
