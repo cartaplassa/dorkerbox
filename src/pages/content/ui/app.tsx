@@ -1,7 +1,7 @@
 import useStorage from '@src/shared/hooks/useStorage';
 import dorkStorage from '@src/shared/storages/dorkStorage.ts';
-import exampleThemeStorage from '@src/shared/storages/exampleThemeStorage';
-import { getURL } from '@utils/getSE.ts';
+import themeStorage from '@root/src/shared/storages/themeStorage';
+import getURL from '@root/src/utils/getURL';
 
 import Dork from './Dork';
 
@@ -9,11 +9,14 @@ export default function App() {
   const url = getURL();
   const storage = useStorage(dorkStorage);
   const dorks = storage[url].dorks;
-  const theme = useStorage(exampleThemeStorage);
+  const theme = useStorage(themeStorage);
+  const cssVars = {
+    '--dorkerbox-accent-color': theme.accentColor,
+    '--dorkerbox-border-radius': theme.borderRadius,
+  } as React.CSSProperties;
 
   return (
-    // <div className={'dorkerbox dorkerbox--' + searchEngines[url]}>
-    <div className={theme == 'light' ? 'dorkerbox' : 'dorkerbox dorkerbox--dark'}>
+    <div className={theme.colorScheme == 'light' ? 'dorkerbox' : 'dorkerbox dorkerbox--dark'} style={cssVars}>
       <div className="dorkerbox__inner">
         {dorks.map(dork => (
           <Dork key={dork.id} content={dork.content} id={dork.id} />

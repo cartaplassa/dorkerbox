@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import App from '@pages/content/ui/app';
 import refreshOnUpdate from 'virtual:reload-on-update-in-view';
 import injectedStyle from './injected.css?inline';
-import { getURL } from '@utils/getSE.ts';
+import getURL from '@root/src/utils/getURL';
 
 refreshOnUpdate('pages/content');
 
@@ -11,33 +11,42 @@ root.id = 'dorkerbox-root';
 
 const searchEngine = getURL();
 
-switch (searchEngine) {
-  case 'duckduckgo.com': {
-    const parentContainer = document.getElementById('header');
-    const bar = document.getElementsByClassName('zcm-wrap-wrap')[0];
-    parentContainer.insertBefore(root, bar);
-    break;
+try {
+  switch (searchEngine) {
+    case 'duckduckgo.com': {
+      const parentContainer = document.getElementById('header');
+      const bar = document.getElementsByClassName('zcm-wrap-wrap')[0];
+      parentContainer.insertBefore(root, bar);
+      break;
+    }
+    case 'www.google.com': {
+      const parentContainer = document.getElementById('cnt');
+      const bar = document.getElementById('sfcnt').nextSibling;
+      parentContainer.insertBefore(root, bar);
+      break;
+    }
+    case 'html.duckduckgo.com': {
+      const parentContainer = document.getElementsByClassName('header__form')[0];
+      const bar = document.getElementsByClassName('frm__select')[0];
+      parentContainer.insertBefore(root, bar);
+      break;
+    }
+    case 'lite.duckduckgo.com': {
+      const parentContainer = document.getElementsByTagName('form')[0];
+      const bar = document.getElementsByClassName('filters')[0];
+      parentContainer.insertBefore(root, bar);
+      break;
+    }
+    default:
+      console.log('Search engine unrecognized: ', searchEngine, "can't inject root");
   }
-  case 'www.google.com': {
-    const parentContainer = document.getElementById('searchform');
-    parentContainer.appendChild(root);
-    document.getElementById('cnt').style.paddingTop = 'calc(20px + 4em)';
-    break;
+} catch (e) {
+  if (e instanceof TypeError) {
+    console.log("Can't inject root at", searchEngine);
+  } else {
+    console.log('Unknown error.');
   }
-  case 'html.duckduckgo.com': {
-    const parentContainer = document.getElementsByClassName('header__form')[0];
-    const bar = document.getElementsByClassName('frm__select')[0];
-    parentContainer.insertBefore(root, bar);
-    break;
-  }
-  case 'lite.duckduckgo.com': {
-    const parentContainer = document.getElementsByTagName('form')[0];
-    const bar = document.getElementsByClassName('filters')[0];
-    parentContainer.insertBefore(root, bar);
-    break;
-  }
-  default:
-    console.log('Search engine unrecognized: ', searchEngine, "can't inject root");
+  console.log(e.message);
 }
 
 const rootIntoShadow = document.createElement('div');

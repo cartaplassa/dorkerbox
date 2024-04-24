@@ -35,6 +35,39 @@
   color: #61dafb;
 }
 
+.App .slider {
+  width: 80%;
+  margin: 20px;
+}
+
+.App .slider__track {
+  top: 0;
+  height: 4px;
+  background: var(--dorkerbox-accent-color);
+  transform: translate(0, -50%);
+}
+
+.App .slider__track.slider__track-0,
+.App .slider__track.slider__track-1 {
+  background: var(--dorkerbox-accent-color);
+}
+
+.App .slider__thumb {
+  cursor: pointer;
+  /*color for the thumb */
+  background: var(--dorkerbox-accent-color);
+  /* background: transparent; */
+  /* shape of the thumb: circle */
+  width: 28px;
+  height: 28px;
+  box-sizing: border-box;
+  border-radius: 100%;
+  border: 2px solid #fff;
+  /* remove default outline when selected */
+  outline: none;
+  transform: translate(0, -50%);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,15 +1,16 @@
 import { useState, useEffect, useRef, InputHTMLAttributes, Dispatch } from 'react';
 import dorkStorage from '@src/shared/storages/dorkStorage.ts';
+import { Immutable } from 'immer';
 
 interface DorkInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  content: string;
+  readonly content: string;
   setEditMode: Dispatch<React.SetStateAction<boolean>>;
 }
 
-type DorkProps = {
+type DorkProps = Immutable<{
   content: string;
   id: number;
-};
+}>;
 
 function DorkInput({ className, content, onChange, setEditMode }: DorkInputProps) {
   const ref = useRef(null);
@@ -26,7 +27,7 @@ function DorkInput({ className, content, onChange, setEditMode }: DorkInputProps
     return () => {
       elem.removeEventListener('keypress', handlePressEnter);
     };
-  }, []);
+  }, [setEditMode]);
 
   return (
     <input
@@ -49,14 +50,6 @@ function Dork({ content, id }: DorkProps) {
     <div className="dork">
       {editMode ? (
         <div className="dork__inner dork__inner--edit-mode">
-          {/*
-          <input
-            className="input"
-            defaultValue={content}
-            onChange={async e => await changeDork(id, e.target.value)}
-            style={{ width: content.length + 'ch' }}
-          />
-          */}
           <DorkInput
             className="input"
             onChange={async e => await changeDork(id, e.target.value)}

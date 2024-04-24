@@ -1,6 +1,5 @@
-import { produce } from 'immer';
-import { BaseStorage, createStorage, StorageType } from '@src/shared/storages/base';
-import { getURL } from '@utils/getSE';
+import { BaseStorage, createStorage, StorageType, modifyStorage } from '@src/shared/storages/base';
+import getURL from '@root/src/utils/getURL';
 
 type Dork = {
   id: number;
@@ -48,43 +47,25 @@ const storage = createStorage<DorkCollection>('dork-storage-key', storageTemplat
 
 const dorkStorage: DorkStorage = {
   ...storage,
-  addDork: async () => {
-    await storage.set(
-      produce(draft => {
-        const url = getURL();
-        if (!draft[url]) {
-          draft[url] = structuredClone(dorkEngine);
-        }
-        draft[url].dorks.push({
-          id: Date.now(),
-          content: '',
-        });
-      }),
-    );
-  },
-  removeDork: async id => {
-    await storage.set(
-      produce(draft => {
-        const url = getURL();
-        if (!draft[url]) {
-          draft[url] = structuredClone(dorkEngine);
-        }
-        draft[url].dorks = draft[url].dorks.filter((dork: Dork) => dork.id != id);
-      }),
-    );
-  },
-  changeDork: async (id, newValue) => {
-    await storage.set(
-      produce(draft => {
-        const url = getURL();
-        if (!draft[url]) {
-          draft[url] = structuredClone(dorkEngine);
-        }
-        const index = draft[url].dorks.findIndex((dork: Dork) => dork.id == id);
-        draft[url].dorks[index].content = newValue;
-      }),
-    );
-  },
+  addDork: modifyStorage(storage, draft => {
+    const url = getURL();
+    draft[url] ??= structuredClone(dorkEngine);
+    draft[url].dorks.push({
+      id: Date.now(),
+      content: '',
+    });
+  }),
+  removeDork: id =>
+    modifyStorage(storage, draft => {
+      const url = getURL();
+      draft[url].dorks = draft[url].dorks.filter((dork: Dork) => dork.id != id);
+    })(),
+  changeDork: (id, newValue) =>
+    modifyStorage(storage, draft => {
+      const url = getURL();
+      const index = draft[url].dorks.findIndex((dork: Dork) => dork.id == id);
+      draft[url].dorks[index].content = newValue;
+    })(),
   injectDork: content => {
     const searchEngine = getURL();
     switch (searchEngine) {
