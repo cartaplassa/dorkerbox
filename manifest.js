@@ -12,13 +12,10 @@ const manifest = {
    * if you want to support multiple languages, you can use the following reference
    * https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization
    */
-  name: '__MSG_extensionName__',
+  name: 'Dorkerbox',
   version: packageJson.version,
-  description: '__MSG_extensionDescription__',
-  permissions: ['storage', 'sidePanel'],
-  side_panel: {
-    default_path: 'src/pages/sidepanel/index.html',
-  },
+  description: 'A simple extension to add and reuse frequently used dorks with one click',
+  permissions: ['storage'],
   options_page: 'src/pages/options/index.html',
   background: {
     service_worker: 'src/pages/background/index.js',
@@ -28,25 +25,21 @@ const manifest = {
     default_popup: 'src/pages/popup/index.html',
     default_icon: 'icon-34.png',
   },
-  chrome_url_overrides: {
-    newtab: 'src/pages/newtab/index.html',
-  },
   icons: {
     128: 'icon-128.png',
   },
   content_scripts: [
+    // {
+    //   matches: ['http://*/*', 'https://*/*', '<all_urls>'],
+    //   js: ['src/pages/contentInjected/index.js'],
+    //   // KEY for cache invalidation
+    //   css: ['assets/css/contentStyle<KEY>.chunk.css'],
+    // },
     {
-      matches: ['http://*/*', 'https://*/*', '<all_urls>'],
-      js: ['src/pages/contentInjected/index.js'],
-      // KEY for cache invalidation
-      css: ['assets/css/contentStyle<KEY>.chunk.css'],
-    },
-    {
-      matches: ['http://*/*', 'https://*/*', '<all_urls>'],
+      matches: ['*://*.duckduckgo.com/*', '*://*.google.com/*'],
       js: ['src/pages/contentUI/index.js'],
     },
   ],
-  devtools_page: 'src/pages/devtools/index.html',
   web_accessible_resources: [
     {
       resources: ['assets/js/*.js', 'assets/css/*.css', 'icon-128.png', 'icon-34.png'],

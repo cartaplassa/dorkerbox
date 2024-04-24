@@ -1,3 +1,5 @@
+import { produce, Draft } from 'immer';
+
 /**
  * Storage area type for persisting and exchanging data.
  * @see https://developer.chrome.com/docs/extensions/reference/storage/#overview
@@ -210,4 +212,9 @@ export function createStorage<D = string>(key: string, fallback: D, config?: Sto
     getSnapshot,
     subscribe,
   };
+}
+
+// Custom function to shorten boilerplating
+export function modifyStorage<S>(storage: BaseStorage<S>, producer: (draft: Draft<S>) => void) {
+  return async () => await storage.set(produce<S>(producer));
 }

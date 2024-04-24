@@ -1,0 +1,49 @@
+.dorkerbox__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5em;
+  padding: 1em;
+}
+
+.dork {
+  overflow: hidden;
+  border: 2px solid var(--dorkerbox-accent-color);
+  border-radius: calc(var(--dorkerbox-border-radius) * .01em);
+}
+
+.button {
+  padding: 1em;
+  border: 0;
+}
+
+.input {
+  appearance: auto;
+  padding: 1em;
+  background: none;
+    outline: none;
+    border: none;
+}
+
+.dork__edit, .dork__accept {
+  border-left: 2px solid var(--dorkerbox-accent-color);
+  border-right: 2px solid var(--dorkerbox-accent-color);
+}
+
+.dorkerbox__add {
+  border: 2px solid var(--dorkerbox-accent-color);
+  border-radius: calc(var(--dorkerbox-border-radius) * .01em);
+}
+
+.dorkerbox,
+.dorkerbox .button,
+.dorkerbox .input {
+  background-color: white;
+  color: black;
+}
+
+.dorkerbox--dark,
+.dorkerbox--dark .button,
+.dorkerbox--dark .input {
+  color: white;
+  background-color: #1f1f1f;
+}
