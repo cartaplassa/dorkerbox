@@ -86,7 +86,7 @@ const dorkStorage: DorkStorage = {
         break;
       }
       default:
-        console.log('Search engine unrecognized: ', searchEngine, "can't inject query");
+        console.log('Search engine unrecognized: ', searchEngine, ", can't inject query");
     }
   },
 };
