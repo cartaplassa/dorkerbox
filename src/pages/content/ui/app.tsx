@@ -17,14 +17,18 @@ export default function App() {
 
   return (
     <div className={theme.colorScheme == 'light' ? 'dorkerbox' : 'dorkerbox dorkerbox--dark'} style={cssVars}>
-      <div className="dorkerbox__inner">
-        {dorks.map(dork => (
-          <Dork key={dork.id} content={dork.content} id={dork.id} />
-        ))}
-        <button className="dorkerbox__add button" onClick={dorkStorage.addDork}>
-          +
-        </button>
-      </div>
+      {storage[url].enabled ? (
+        <div className="dorkerbox__inner">
+          {dorks.map(dork => (
+            <Dork key={dork.id} content={dork.content} id={dork.id} />
+          ))}
+          <button className="dorkerbox__add button" onClick={dorkStorage.addDork}>
+            +
+          </button>
+        </div>
+      ) : (
+        <div />
+      )}
     </div>
   );
 }

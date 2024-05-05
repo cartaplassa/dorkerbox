@@ -25,14 +25,9 @@ const dorkEngine = {
   dorks: [],
 };
 
-const searchEngines = {
-  'duckduckgo.com': 'search_form_input',
-  'lite.duckduckgo.com': 'placeholder',
-  'html.duckduckgo.com': 'placeholder',
-  'www.google.com': 'placeholder',
-};
+export const searchEngines = ['duckduckgo.com', 'lite.duckduckgo.com', 'html.duckduckgo.com', 'www.google.com'];
 
-const storageTemplate = Object.keys(searchEngines).reduce((obj, engine) => {
+const storageTemplate = searchEngines.reduce((obj, engine) => {
   obj[engine] = structuredClone({
     enabled: true,
     dorks: [],
@@ -47,6 +42,8 @@ const storage = createStorage<DorkCollection>('dork-storage-key', storageTemplat
 
 const dorkStorage: DorkStorage = {
   ...storage,
+
+  // Dork mgmt
   addDork: modifyStorage(storage, draft => {
     const url = getURL();
     draft[url] ??= structuredClone(dorkEngine);
@@ -89,6 +86,14 @@ const dorkStorage: DorkStorage = {
         console.log('Search engine unrecognized: ', searchEngine, ", can't inject query");
     }
   },
+
+  // SE mgmt
+  toggleSearchEngine: engine =>
+    modifyStorage(storage, draft => {
+      if (searchEngines.includes(engine)) {
+        draft[engine].enabled = !draft[engine].enabled;
+      } else throw new ReferenceError('Engine ', engine, ' unrecognized');
+    })(),
 };
 
 export default dorkStorage;

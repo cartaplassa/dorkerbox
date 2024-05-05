@@ -7,7 +7,7 @@
   text-align: center;
   height: 100%;
   padding: 10px;
-  background-color: #282c34;
+  background-color: var(--dorkerbox-bg-color);
 }
 
 .App__logo {
@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--dorkerbox-text-color);
 }
 
 .App__link {
@@ -41,6 +41,8 @@
   padding: 1em;
   border: 2px solid var(--dorkerbox-accent-color);
   border-radius: calc(var(--dorkerbox-border-radius) * .01em);
+  color: var(--dorkerbox-text-color);
+  background-color: var(--dorkerbox-bg-color);
 }
 
 .App .slider {
@@ -75,6 +77,13 @@
   /* remove default outline when selected */
   outline: none;
   transform: translate(0, -50%);
+}
+
+.App .engine-toggle {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @keyframes App__logo-spin {
