@@ -20,8 +20,8 @@
   appearance: auto;
   padding: 1em;
   background: none;
-    outline: none;
-    border: none;
+  outline: none;
+  border: none;
 }
 
 .dork__edit, .dork__accept {

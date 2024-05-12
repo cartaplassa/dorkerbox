@@ -1,7 +1,8 @@
 import useStorage from '@src/shared/hooks/useStorage';
-import dorkStorage from '@src/shared/storages/dorkStorage.ts';
-import themeStorage from '@root/src/shared/storages/themeStorage';
-import getURL from '@root/src/utils/getURL';
+import dorkStorage from '@src/shared/storages/dorkStorage';
+import themeStorage from '@src/shared/storages/themeStorage';
+import getURL from '@src/utils/getURL';
+import { FaPlus } from 'react-icons/fa6';
 
 import Dork from './Dork';
 
@@ -23,7 +24,7 @@ export default function App() {
             <Dork key={dork.id} content={dork.content} id={dork.id} />
           ))}
           <button className="dorkerbox__add button" onClick={dorkStorage.addDork}>
-            +
+            <FaPlus />
           </button>
         </div>
       ) : (

@@ -1,4 +1,3 @@
-import logo from '@assets/img/logo.svg';
 import '@pages/popup/Popup.css';
 import useStorage from '@src/shared/hooks/useStorage';
 import themeStorage from '@root/src/shared/storages/themeStorage';
@@ -7,6 +6,7 @@ import withErrorBoundary from '@src/shared/hoc/withErrorBoundary';
 import { HexColorPicker } from 'react-colorful';
 import ReactSlider from 'react-slider';
 import dorkStorage, { searchEngines } from '@root/src/shared/storages/dorkStorage';
+import { FaCheck, FaXmark } from 'react-icons/fa6';
 
 type CustomSliderProps = {
   value: number;
@@ -36,7 +36,7 @@ const EngineToggle = ({ engine, getter, setter }: EngineToggleProps) => {
   return (
     <div className="engine-toggle" role="presentation" onClick={setter} onKeyDown={setter}>
       <span className="engine-toggle__title">{engine}</span>
-      <span className="engine-toggle__icon">{getter ? 'V' : 'X'}</span>
+      {getter ? <FaCheck /> : <FaXmark />}
     </div>
   );
 };
@@ -57,28 +57,32 @@ const Popup = () => {
     <div className="App" style={cssVars}>
       <header className="App__header">
         DORKERBOX {/* TODO: logo */}
-        <img src={logo} className="App__logo" alt="logo" />
         <button className="App__theme-toggler" onClick={themeStorage.toggleColorScheme}>
           Toggle theme
         </button>
-        BORDER RADIUS
+        <span className="App__heading">Border radius:</span>
         <CustomSlider value={theme.borderRadius} onChange={handleSlider} />
-        ACCENT COLOR
-        <HexColorPicker color={theme.accentColor} onChange={themeStorage.setAccentColor} />
-        <input
-          type="text"
-          defaultValue={theme.accentColor}
-          onChange={async e => await themeStorage.setAccentColor(e.target.value)}
-        />
-        ENGINES
-        {searchEngines.map(engine => (
-          <EngineToggle
-            key={engine}
-            engine={engine}
-            getter={dorks[engine].enabled}
-            setter={async () => await dorkStorage.toggleSearchEngine(engine)}
+        <span className="App__heading">Accent color:</span>
+        <div className="App__color-wrapper">
+          <HexColorPicker color={theme.accentColor} onChange={themeStorage.setAccentColor} />
+          <input
+            className="App__color-input"
+            type="text"
+            defaultValue={theme.accentColor}
+            onChange={async e => await themeStorage.setAccentColor(e.target.value)}
           />
-        ))}
+        </div>
+        <span className="App__heading">Search engines:</span>
+        <div className="App__engine-block">
+          {searchEngines.map(engine => (
+            <EngineToggle
+              key={engine}
+              engine={engine}
+              getter={dorks[engine].enabled}
+              setter={async () => await dorkStorage.toggleSearchEngine(engine)}
+            />
+          ))}
+        </div>
       </header>
     </div>
   );

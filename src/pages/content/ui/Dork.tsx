@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef, InputHTMLAttributes, Dispatch } from 'react';
-import dorkStorage from '@src/shared/storages/dorkStorage.ts';
-import { Immutable } from 'immer';
+import dorkStorage from '@src/shared/storages/dorkStorage';
+import { FaCheck, FaXmark, FaPen } from 'react-icons/fa6';
 
 interface DorkInputProps extends InputHTMLAttributes<HTMLInputElement> {
   readonly content: string;
   setEditMode: Dispatch<React.SetStateAction<boolean>>;
 }
 
-type DorkProps = Immutable<{
-  content: string;
-  id: number;
-}>;
+type DorkProps = {
+  readonly content: string;
+  readonly id: number;
+};
 
 function DorkInput({ className, content, onChange, setEditMode }: DorkInputProps) {
   const ref = useRef(null);
@@ -56,10 +56,10 @@ function Dork({ content, id }: DorkProps) {
             {...{ content, setEditMode }}
           />
           <button className="button dork__accept" onClick={toggleEditMode}>
-            V
+            <FaCheck />
           </button>
           <button className="button dork__remove" onClick={async () => await removeDork(id)}>
-            X
+            <FaXmark />
           </button>
         </div>
       ) : (
@@ -68,10 +68,10 @@ function Dork({ content, id }: DorkProps) {
             {content}
           </button>
           <button className="button dork__edit" onClick={toggleEditMode}>
-            E
+            <FaPen />
           </button>
           <button className="button dork__remove" onClick={async () => await removeDork(id)}>
-            X
+            <FaXmark />
           </button>
         </div>
       )}
