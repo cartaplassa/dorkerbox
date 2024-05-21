@@ -34,16 +34,21 @@
   border-radius: calc(var(--dorkerbox-border-radius) * .01em);
 }
 
-.dorkerbox,
+.dorkerbox .dork,
 .dorkerbox .button,
 .dorkerbox .input {
   background-color: white;
   color: black;
 }
 
-.dorkerbox--dark,
+.dorkerbox--dark .dork,
 .dorkerbox--dark .button,
 .dorkerbox--dark .input {
   color: white;
   background-color: #1f1f1f;
+}
+
+.dork__inner {
+  display: flex;
+  align-items: stretch;
 }

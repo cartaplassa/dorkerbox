@@ -36,7 +36,7 @@ const EngineToggle = ({ engine, getter, setter }: EngineToggleProps) => {
   return (
     <div className="engine-toggle" role="presentation" onClick={setter} onKeyDown={setter}>
       <span className="engine-toggle__title">{engine}</span>
-      {getter ? <FaCheck /> : <FaXmark />}
+      {getter ? <FaCheck color="#06ff10" /> : <FaXmark color="#f00" />}
     </div>
   );
 };
@@ -55,35 +55,34 @@ const Popup = () => {
 
   return (
     <div className="App" style={cssVars}>
-      <header className="App__header">
-        DORKERBOX {/* TODO: logo */}
-        <button className="App__theme-toggler" onClick={themeStorage.toggleColorScheme}>
-          Toggle theme
-        </button>
-        <span className="App__heading">Border radius:</span>
-        <CustomSlider value={theme.borderRadius} onChange={handleSlider} />
-        <span className="App__heading">Accent color:</span>
-        <div className="App__color-wrapper">
-          <HexColorPicker color={theme.accentColor} onChange={themeStorage.setAccentColor} />
-          <input
-            className="App__color-input"
-            type="text"
-            defaultValue={theme.accentColor}
-            onChange={async e => await themeStorage.setAccentColor(e.target.value)}
+      <header className="App__header">DORKERBOX {/* TODO: logo */}</header>
+      <button className="App__theme-toggler" onClick={themeStorage.toggleColorScheme}>
+        Toggle theme
+      </button>
+      <span className="App__heading">Border radius:</span>
+      <CustomSlider value={theme.borderRadius} onChange={handleSlider} />
+      <span className="App__heading">Accent color:</span>
+      <div className="App__color-wrapper">
+        <HexColorPicker color={theme.accentColor} onChange={themeStorage.setAccentColor} />
+        <input
+          className="App__color-input"
+          type="text"
+          defaultValue={theme.accentColor}
+          value={theme.accentColor}
+          onChange={async e => await themeStorage.setAccentColor(e.target.value)}
+        />
+      </div>
+      <span className="App__heading">Search engines:</span>
+      <div className="App__engine-block">
+        {searchEngines.map(engine => (
+          <EngineToggle
+            key={engine}
+            engine={engine}
+            getter={dorks[engine].enabled}
+            setter={async () => await dorkStorage.toggleSearchEngine(engine)}
           />
-        </div>
-        <span className="App__heading">Search engines:</span>
-        <div className="App__engine-block">
-          {searchEngines.map(engine => (
-            <EngineToggle
-              key={engine}
-              engine={engine}
-              getter={dorks[engine].enabled}
-              setter={async () => await dorkStorage.toggleSearchEngine(engine)}
-            />
-          ))}
-        </div>
-      </header>
+        ))}
+      </div>
     </div>
   );
 };

@@ -7,17 +7,18 @@
   text-align: center;
   height: 100%;
   padding: 10px;
+  color: var(--dorkerbox-text-color);
   background-color: var(--dorkerbox-bg-color);
-}
-
-.App__header {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: calc(10px + 2vmin);
-  color: var(--dorkerbox-text-color);
+}
+
+.App__header {
+  width: 200px;
+  text-align: center;
 }
 
 .App__heading {
@@ -31,8 +32,8 @@
 
 .App .App__theme-toggler {
   width: 200px;
-  margin: auto;
-  padding: 1em;
+  margin: .5em 0;
+  padding: .5em;
   border: 2px solid var(--dorkerbox-accent-color);
   border-radius: calc(var(--dorkerbox-border-radius) * .01em);
   color: var(--dorkerbox-text-color);
@@ -41,7 +42,7 @@
 
 .App .slider {
   width: 200px;
-  margin: auto;
+  margin: .8em 0;
 }
 
 .App .slider__track {
@@ -76,7 +77,7 @@
 .App__color-wrapper {
   border: 2px solid var(--dorkerbox-accent-color);
   border-radius: 10px;
-  margin-bottom: 1.5em;
+  margin: .8em 0 .8em;
 }
 
 .App__color-input {
@@ -89,20 +90,21 @@
 }
 
 .App__engine-block {
-  border: 2px solid var(--dorkerbox-accent-color);
+  /* border: 1px solid var(--dorkerbox-text-color); */
   border-radius: 10px;
   width: 200px;
+  margin-top: .5em;
 }
 
 .App .engine-toggle {
-  padding: 0 .5em;
+  padding: .3em .3em;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .App .engine-toggle {
-  border-top: 2px solid var(--dorkerbox-accent-color);
+  border-top: 1px solid var(--dorkerbox-accent-color);
 }
 
 .App .engine-toggle:first-child {
