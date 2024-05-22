@@ -20,9 +20,25 @@ try {
       break;
     }
     case 'www.google.com': {
-      const parentContainer = document.getElementById('cnt');
-      const bar = document.getElementById('sfcnt').nextSibling;
-      parentContainer.insertBefore(root, bar);
+      // Default desktop frontend
+      if (document.getElementById('cnt')?.contains(document.getElementById('sfcnt'))) {
+        const parentContainer = document.getElementById('cnt');
+        const bar = document.getElementById('sfcnt').nextSibling;
+        parentContainer.insertBefore(root, bar);
+      }
+      // Old frontend that opens with custom UA for some reason
+      else if (document.getElementById('hdr')) {
+        // const parentContainer = document.getElementById('hdr');
+        // parentContainer.appendChild(root);
+        // Issues w/ injecting text, google.log etc. is not a function
+      }
+      // Mobile frontend
+      else if (document.getElementsByTagName('header')) {
+        const parentContainer = document.getElementsByTagName('header')[0];
+        parentContainer.appendChild(root);
+      } else {
+        console.log("Can't inject root in google");
+      }
       break;
     }
     case 'html.duckduckgo.com': {
@@ -57,7 +73,7 @@ shadowRoot.appendChild(rootIntoShadow);
 
 /** Inject styles into shadow dom */
 const styleElement = document.createElement('style');
-styleElement.innerHTML = injectedStyle;
+styleElement.textContent = injectedStyle;
 shadowRoot.appendChild(styleElement);
 
 /**

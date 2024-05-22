@@ -15,13 +15,13 @@ type StorageTypeProps = {
 const StorageDump = ({ query }: StorageTypeProps) => {
   const populateTextArea = async () => {
     const key = getKey(query);
-    const storage = await getStorage(key);
-    const textArea = document.getElementById('textarea-' + key);
+    const storage = await getStorage();
+    const textArea = document.getElementById('textarea-' + key) as HTMLTextAreaElement;
     textArea.value = JSON.stringify(storage[key], null, 2);
   };
   const copyStorage = async () => {
     const key = getKey(query);
-    const storage = await getStorage(key);
+    const storage = await getStorage();
     copyToClipboard(JSON.stringify(storage[key], null, 2));
   };
   return (
@@ -35,7 +35,7 @@ const StorageDump = ({ query }: StorageTypeProps) => {
           Copy
         </button>
       </div>
-      <textarea id={'textarea-' + getKey(query)} cols="50" rows="30"></textarea>
+      <textarea id={'textarea-' + getKey(query)} cols={50} rows={30}></textarea>
     </div>
   );
 };

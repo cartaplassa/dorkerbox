@@ -13,17 +13,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
-}
-
-.App__header {
-  width: 200px;
-  text-align: center;
+  font-size: 14px;
 }
 
 .App__heading {
   width: 200px;
   text-align: left;
+}
+
+.App__header {
+  width: 200px;
+  text-align: center;
 }
 
 .App__link {
@@ -77,7 +77,7 @@
 .App__color-wrapper {
   border: 2px solid var(--dorkerbox-accent-color);
   border-radius: 10px;
-  margin: .8em 0 .8em;
+  margin: .8em 0 .5em;
 }
 
 .App__color-input {
@@ -93,7 +93,7 @@
   /* border: 1px solid var(--dorkerbox-text-color); */
   border-radius: 10px;
   width: 200px;
-  margin-top: .5em;
+  margin-top: .3em;
 }
 
 .App .engine-toggle {

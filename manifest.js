@@ -12,9 +12,9 @@ const manifest = {
    * if you want to support multiple languages, you can use the following reference
    * https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization
    */
-  name: 'Dorkerbox',
+  name: packageJson.name,
   version: packageJson.version,
-  description: 'A simple extension to add and reuse frequently used dorks with one click',
+  description: packageJson.description,
   permissions: ['storage'],
   options_page: 'src/pages/options/index.html',
   background: {
@@ -46,6 +46,12 @@ const manifest = {
       matches: ['*://*/*'],
     },
   ],
+  browser_specific_settings: {
+    gecko: {
+      id: '{27fcb289-947f-4802-95d8-155255344a5c}',
+      strict_min_version: '109.0',
+    },
+  },
 };
 
 export default manifest;

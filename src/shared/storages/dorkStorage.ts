@@ -18,6 +18,7 @@ type DorkStorage = BaseStorage<DorkCollection> & {
   removeDork: (id: number) => Promise<void>;
   changeDork: (id: number, newValue: string) => Promise<void>;
   injectDork: (content: string) => void;
+  toggleSearchEngine: (engine: string) => Promise<void>;
 };
 
 const dorkEngine = {
@@ -73,7 +74,7 @@ const dorkStorage: DorkStorage = {
       }
       case 'www.google.com': {
         const field = <HTMLTextAreaElement>document.querySelectorAll('[name="q"]')[0];
-        field.innerHTML += ` ${content}`;
+        field.textContent += ` ${content}`;
         break;
       }
       case 'html.duckduckgo.com':
@@ -92,7 +93,7 @@ const dorkStorage: DorkStorage = {
     modifyStorage(storage, draft => {
       if (searchEngines.includes(engine)) {
         draft[engine].enabled = !draft[engine].enabled;
-      } else throw new ReferenceError('Engine ', engine, ' unrecognized');
+      } else throw new ReferenceError('Engine ' + engine + ' unrecognized');
     })(),
 };
 

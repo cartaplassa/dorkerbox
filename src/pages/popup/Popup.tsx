@@ -7,6 +7,7 @@ import { HexColorPicker } from 'react-colorful';
 import ReactSlider from 'react-slider';
 import dorkStorage, { searchEngines } from '@root/src/shared/storages/dorkStorage';
 import { FaCheck, FaXmark } from 'react-icons/fa6';
+import { MouseEventHandler } from 'react/ts5.0';
 
 type CustomSliderProps = {
   value: number;
@@ -29,12 +30,18 @@ const CustomSlider = ({ value, onChange }: CustomSliderProps) => (
 type EngineToggleProps = {
   engine: string;
   getter: boolean;
-  setter: (value: boolean) => Promise<void>;
+  // setter: (value: boolean) => Promise<void>;
+  setter: MouseEventHandler<HTMLDivElement>;
 };
 
 const EngineToggle = ({ engine, getter, setter }: EngineToggleProps) => {
   return (
-    <div className="engine-toggle" role="presentation" onClick={setter} onKeyDown={setter}>
+    <div
+      className="engine-toggle"
+      role="presentation"
+      onClick={setter}
+      // onKeyDown={setter}
+    >
       <span className="engine-toggle__title">{engine}</span>
       {getter ? <FaCheck color="#06ff10" /> : <FaXmark color="#f00" />}
     </div>
